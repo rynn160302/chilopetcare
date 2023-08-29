@@ -49,7 +49,7 @@
                 <div>
                     <a href="{{ route('profile.edit') }}"
                         class="btn button-primary rounded">{{ Auth::user()->name }}</a>
-                    <form class="d-inline" method="POST" action="{{ route('logout') }}">
+                    <form class="d-inline" method="POST" action="{{ route('lo g]    out') }}">
                         @csrf
                         <button class="btn btn-secondary rounded">Logout</button>
                     </form>
@@ -97,56 +97,22 @@
             <br />
             <div class="container">
                 <div class="box-container">
+                    @forelse ($products as $product)
                     <div class="box">
-                        <img src="{{ asset('assets/img/kuman.png') }}" alt="">
-                        <h3>MANDI BASIC</h3>
+                        <img src="{{ asset('storage/'.$product->image) }}" alt="">
+                        <h3>{{ $product->name }}</h3>
                         <p>Include :</p>
-                        <ul style="list-style-type:disc;">
-                            <li>Gunting Kuku</li>
-                            <li>Cukur Bulu Kaki</li>
-                            <li>Bersihkan Mata & Hidung</li>
-                        </ul>
-                        <h4> Rp. 80.000</h4>
+                        <p>
+                            {{ $product->description }}
+                        </p>
+                        <h4>{{ $product->formatPrice($product->price) }}</h4>
                         <a href="#" class="btn">Pesan Sekarang</a>
                     </div>
-                    <div class="box">
-                        <img src="{{ asset('assets/img/kuman2.jpeg') }}" alt="">
-                        <h3>MANDI JAMUR/KUTU</h3>
-                        <p>Include :</p>
-                        <ul style="list-style-type:disc;">
-                            <li>Gunting Kuku</li>
-                            <li>Cukur Bulu Kaki</li>
-                            <li>Bersihkan Mata & Hidung</li>
-                        </ul>
-                        <h4> Rp. 100.000</h4>
-                        <a href="#" class="btn">Pesan Sekarang</a>
-                    </div>
-                    <div class="box">
-                        <img src="{{ asset('assets/img/kuman3.png') }}" alt="">
-                        <h3>CUKUR BOTAK</h3>
-                        <p>Include :</p>
-                        <ul style="list-style-type:disc;">
-                            <li>Gunting Kuku</li>
-                            <li>Cukur Bulu Kaki</li>
-                            <li>Bersihkan Mata & Hidung</li>
-                            <li>Bersihkan Telinga</li>
-                        </ul>
-                        <h4> Rp. 120.000</h4>
-                        <a href="#" class="btn">Pesan Sekarang</a>
-                    </div>
-                    <div class="box">
-                        <img src="{{ asset('assets/img/kuman4.png') }}" alt="">
-                        <h3>CUKUR MODEL</h3>
-                        <p>Include :</p>
-                        <ul style="list-style-type:disc;">
-                            <li>Gunting Kuku</li>
-                            <li>Cukur Bulu Kaki</li>
-                            <li>Bersihkan Mata & Hidung</li>
-                            <li>Bersihkan Telinga</li>
-                        </ul>
-                        <h4> Rp. 120.000</h4>
-                        <a href="#" class="btn">Pesan Sekarang</a>
-                    </div>
+                    @empty
+                        <div class="text-center">
+                            No data
+                        </div>
+                    @endforelse
                 </div>
             </div>
     </section>
