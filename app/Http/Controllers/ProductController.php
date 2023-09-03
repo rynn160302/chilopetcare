@@ -11,8 +11,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-    	// mengambil data dari table pegawai
-    	$products = Product::get();
+        // mengambil data dari table pegawai
+        $products = Product::get();
 
         return view('admin.products.index', [
             'products' => $products
@@ -25,8 +25,8 @@ class ProductController extends Controller
         return view('admin.products.add', compact('product'));
     }
 
-	public function store(Request $request)
-	{
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => ['required'],
             'description' => ['required'],
@@ -44,7 +44,12 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('admin.product.index');
-	}
+    }
+
+    public function show(Product $product)
+    {
+        return view('product.show', compact('product'));
+    }
 
     public function edit(Product $product)
     {
@@ -53,8 +58,8 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        if($request->file('image')) {
-            if($product->image !== null) {
+        if ($request->file('image')) {
+            if ($product->image !== null) {
                 Storage::delete($product->image);
             }
             $image = $request->file('image')->store('products');
@@ -72,6 +77,9 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        if($product->image !== null ) {
+            Storage::delete($product->image);
+        }
         $product->delete();
         return back();
     }

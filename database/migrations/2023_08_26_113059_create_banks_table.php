@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->string('owner');
             $table->string('name');
-            $table->float('amount',20);
-            $table->text('address');
-            $table->string('status')->default(\App\Enums\BookingStatus::PENDING->value);
+            $table->string('account_number');
+            $table->string('logo')->nullable();
+            $table->boolean('show')->default(true);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('banks');
     }
 };

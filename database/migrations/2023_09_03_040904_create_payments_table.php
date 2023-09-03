@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('booking_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('bank_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->float('amount',20);
+            $table->timestamp('transfer_date');
+            $table->string('invoice')->nullable();
+            $table->string('status')->default(\App\Enums\PaymentStatus::PENDING->value);
             $table->timestamps();
         });
     }
